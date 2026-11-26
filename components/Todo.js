@@ -1,35 +1,63 @@
 
-class Todo {
+export default class Todo {
   constructor(data, selector) {
     this._data = data;
-    this._templateElement = document.querySelector(selector);
+    this._selector = selector;
+  }
+
+  _setEventListeners() {
+    const deleteButton = this._element.querySelector(
+      ".todo__delete-btn"
+    );
+
+    const checkbox = this._element.querySelector(
+      ".todo__completed"
+    );
+
+    deleteButton.addEventListener("click", () => {
+      this._element.remove();
+    });
+
+    checkbox.addEventListener("change", () => {
+      this._element.classList.toggle("todo_completed");
+    });
   }
 
   getView() {
-    this._todoElement = this._templateElement.content
+    const template = document.querySelector(this._selector);
+
+    this._element = template.content
       .querySelector(".todo")
       .cloneNode(true);
 
-    const todoNameEl = this._todoElement.querySelector(".todo__name");
-    const todoCheckboxEl = this._todoElement.querySelector(".todo__completed");
-    const todoLabel = this._todoElement.querySelector(".todo__label");
-    const todoDate = this._todoElement.querySelector(".todo__date");
-    const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
+    const checkbox = this._element.querySelector(
+      ".todo__completed"
+    );
 
-    todoNameEl.textContent = this._data.name;
-    todoCheckboxEl.checked = this._data.completed;
-    todoDate.textContent = this._data.date.toLocaleDateString();
+    const label = this._element.querySelector(
+      ".todo__label"
+    );
 
-    console.log(todoLabel.innerHTML);
+    this._element.querySelector(".todo__name").textContent =
+      this._data.name;
 
-    if (todoLabel) {
-      todoLabel.textContent = this._data.name;
+   this._element.querySelector(".todo__date").textContent =
+  this._data.date
+    ? this._data.date.toLocaleDateString()
+    : "";
 
-      console.log(todoLabel.innerHTML);
+    checkbox.id = this._data.id;
+    label.htmlFor = this._data.id;
+
+    checkbox.checked = Boolean(this._data.completed);
+
+    if (this._data.completed) {
+      this._element.classList.add("todo_completed");
     }
 
-    return this._todoElement;
+    this._setEventListeners();
+
+    return this._element;
   }
 }
 
-export default Todo;
