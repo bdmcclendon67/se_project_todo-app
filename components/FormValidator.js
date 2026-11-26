@@ -80,7 +80,6 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  
 resetValidation() {
   this._formElement.reset();
 
@@ -88,11 +87,7 @@ resetValidation() {
     this._hideInputError(inputElement);
   });
 
-  this._buttonElement.classList.add(
-    this._settings.inactiveButtonClass
-  );
-
-  this._buttonElement.disabled = true;
+ this._toggleButtonState();
 }
 
 }
