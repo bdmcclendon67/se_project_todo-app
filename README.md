@@ -64,4 +64,4 @@ UUID library
 
 This project is deployed on GitHub Pages:
 
-- ADD LINK HERE
+-[ ADD LINK HERE](https://bdmcclendon67.github.io/se_project_todo-app/)
